@@ -15,7 +15,7 @@ static NSString * const kCellReuseIdentifier = @"UITableViewCell";
 
 @interface ViewController () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) NSMutableArray *fontList;
+@property (nonatomic, copy) NSArray *fontList;
 @property (nonatomic, strong) UITableView *tableView;
 
 @end
@@ -88,18 +88,18 @@ static NSString * const kCellReuseIdentifier = @"UITableViewCell";
 
 #pragma mark - getter
 
-- (NSMutableArray *)fontList
+- (NSArray *)fontList
 {
     if (!_fontList) {
-        _fontList = [NSMutableArray array];
-        
+        NSMutableArray *mArray = [NSMutableArray array];
         for (NSString *familyName in [UIFont familyNames]) {
             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
             [dict setValue:familyName forKey:kFontKeyFamilyName];
-            NSArray *fontName = [UIFont fontNamesForFamilyName:familyName];
-            [dict setValue:fontName forKey:kFontKeyFontNames];
-            [_fontList addObject:dict];
+            NSArray *fontNames = [UIFont fontNamesForFamilyName:familyName];
+            [dict setValue:fontNames forKey:kFontKeyFontNames];
+            [mArray addObject:dict];
         }
+        _fontList = mArray.copy;
     }
     return _fontList;
 }
