@@ -74,6 +74,9 @@ static NSString * const kCellReuseIdentifier = @"UITableViewCell";
     NSArray *fontNames = dict[kFontKeyFontNames];
     NSString *fontName = fontNames[indexPath.row];
     
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    pasteboard.string = fontName;
+    
     SizeViewController *sizeVC = [[SizeViewController alloc] init];
     sizeVC.fontName = fontName;
     [self.navigationController pushViewController:sizeVC animated:YES];
